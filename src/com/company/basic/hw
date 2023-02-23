@@ -1,0 +1,61 @@
+--ССЫЛКА НА ДИАГРАММУ https://drawsql.app/teams/1-207/diagrams/alpinist
+/* База данных хроники восхождений в альпинистском клубе. В
+базе данных должны записываться даты начала и завершения каждого восхождения, имена и адреса участвовавших в нем альпинистов, название и высота горы, страна и район, где эта гора
+расположена. Дайте выразительные имена таблицам и полям, в
+которые могла бы заноситься указанная информация*/
+CREATE TABLE Alpinist (id INTEGER PRIMARY KEY AUTOINCREMENT,surname VARCHAR not null,name VARCHAR not null, adress VARCHAR not null);
+
+INSERT INTO Alpinist (surname, name, adress) VALUES ('Рябицкий','Антон','пр-кт Победа 35, 73');
+INSERT INTO Alpinist (surname, name, adress) VALUES ('Мелашенко ','Илья ','пр-кт Черняховского 27а, 44');
+INSERT INTO Alpinist (surname, name, adress) VALUES ('Питаленко ','Никита','пр-кт Строителей 4, 213');
+INSERT INTO Alpinist (surname, name, adress) VALUES ('Беляев','Артем','ул. Герцина 37, 48');
+INSERT INTO Alpinist (surname, name, adress) VALUES ('Пушкин ','Артемий ','пр-кт Мира  47, 763');
+INSERT INTO Alpinist (surname, name, adress) VALUES ('Кривоносов ','Вячеслав','ул. Ленина  10, 10');
+INSERT INTO Alpinist (surname, name, adress) VALUES ('Рыжикова ','Антонина','пр-кт Победа 38, 30');
+INSERT INTO Alpinist (surname, name, adress) VALUES ('Иванов','Петр','ул. Некрасова  135, 3');
+
+CREATE TABLE Mountain  (id INTEGER PRIMARY KEY AUTOINCREMENT,name VARCHAR not null,country VARCHAR not null, region VARCHAR not null, height_m integer not NULL);
+
+INSERT INTO Mountain (name, country, region, height_m) VALUES ('Совья гора','Польша', 'Нижняя Силезия',1250);
+INSERT INTO Mountain (name, country, region, height_m) VALUES ('Красная','Беларусь', 'Полесье', 700);
+INSERT INTO Mountain (name, country, region, height_m) VALUES ('Могучая ','Россия', 'Урал', 2240);
+INSERT INTO Mountain (name, country, region, height_m) VALUES ('Прекрасная ','Россия ', 'Бурятия', 1890);
+INSERT INTO Mountain (name, country, region, height_m) VALUES ('Гора Мага','Китай', 'Тибет ', 4050);
+
+CREATE TABLE Expedition (id INTEGER PRIMARY KEY AUTOINCREMENT,
+ data_start VARCHAR not null,
+ data_finish VARCHAR not null,
+ mountain_id INTEGER NOT NULL,
+ FOREIGN KEY (mountain_id) REFERENCES mountain(id));
+ 
+ INSERT INTO Expedition (data_start, data_finish, mountain_id) VALUES ('25.01.2022', '28.02.2022', 3);
+ INSERT INTO Expedition (data_start, data_finish, mountain_id) VALUES ('19.03.2022', '28.03.2022', 2);
+ INSERT INTO Expedition (data_start, data_finish, mountain_id) VALUES ('05.05.2022', '30.05.2022', 5);
+ INSERT INTO Expedition (data_start, data_finish, mountain_id) VALUES ('27.06.2022', '28.07.2022', 4);
+ 
+ CREATE TABLE Climb (id INTEGER PRIMARY KEY, 
+ alpinist_id INTEGER NOt NULL,
+ expedition_id INTEGER NOt NULL, 
+ FOREIGN KEY (alpinist_id) REFERENCES Alpinist(id),
+ FOREIGN KEY (expedition_id) REFERENCES Expedition(id));
+ 
+ INSERT INTO CLIMB (alpinist_id, expedition_id) VALUES (1,4);
+ INSERT INTO CLIMB (alpinist_id, expedition_id) VALUES (2,3); 
+ INSERT INTO CLIMB (alpinist_id, expedition_id) VALUES (3,2); 
+ INSERT INTO CLIMB (alpinist_id, expedition_id) VALUES (4,1); 
+ INSERT INTO CLIMB (alpinist_id, expedition_id) VALUES (5,4); 
+ INSERT INTO CLIMB (alpinist_id, expedition_id) VALUES (6,3); 
+ INSERT INTO CLIMB (alpinist_id, expedition_id) VALUES (7,2); 
+ INSERT INTO CLIMB (alpinist_id, expedition_id) VALUES (5,1); 
+ INSERT INTO CLIMB (alpinist_id, expedition_id) VALUES (2,4); 
+ INSERT INTO CLIMB (alpinist_id, expedition_id) VALUES (1,2); 
+ INSERT INTO CLIMB (alpinist_id, expedition_id) VALUES (3,3);
+ INSERT INTO CLIMB (alpinist_id, expedition_id) VALUES (4,3); 
+ INSERT INTO CLIMB (alpinist_id, expedition_id) VALUES (5,2); 
+ INSERT INTO CLIMB (alpinist_id, expedition_id) VALUES (6,4); 
+ INSERT INTO CLIMB (alpinist_id, expedition_id) VALUES (7,3); 
+ INSERT INTO CLIMB (alpinist_id, expedition_id) VALUES (6,2); 
+ INSERT INTO CLIMB (alpinist_id, expedition_id) VALUES (7,1);
+ 
+ 
+ 
